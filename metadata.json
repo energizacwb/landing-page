@@ -1,0 +1,6 @@
+{
+  "name": "Energiza Solucoes Landing Pages",
+  "description": "One-pages GTM por ICP da Energiza Soluções, otimizadas para conversão e tracking de GTM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
