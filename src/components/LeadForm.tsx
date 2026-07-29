@@ -161,12 +161,21 @@ export default function LeadForm({
         console.error('Error saving lead to cache:', err);
       }
 
-      onLeadCaptured(newLead);
-      if (onGTMEvent) {
-        onGTMEvent(`form_submit_success_${icpSlug}`, 'form_container', { 
-          company: formData.company,
-          copy_sent_to: 'giza@energizasolucoes.com'
-        });
+      try {
+        if (onLeadCaptured) onLeadCaptured(newLead);
+      } catch (err) {
+        console.error('Error executing onLeadCaptured callback:', err);
+      }
+
+      try {
+        if (onGTMEvent) {
+          onGTMEvent(`form_submit_success_${icpSlug}`, 'form_container', { 
+            company: formData.company,
+            copy_sent_to: 'giza@energizasolucoes.com'
+          });
+        }
+      } catch (err) {
+        console.error('Error executing onGTMEvent callback:', err);
       }
 
       setIsSubmitting(false);

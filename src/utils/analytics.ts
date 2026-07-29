@@ -52,25 +52,33 @@ export function initGoogleAnalytics(gaId?: string) {
 export function trackEvent(eventName: string, params: Record<string, any> = {}) {
   if (typeof window === 'undefined') return;
 
-  const timestamp = new Date().toISOString();
-  const payload = {
-    event: eventName,
-    timestamp,
-    page_location: window.location.href,
-    page_path: window.location.pathname,
-    ...params,
-  };
+  try {
+    const timestamp = new Date().toISOString();
+    const payload = {
+      event: eventName,
+      timestamp,
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+      ...params,
+    };
 
-  // Push to GTM dataLayer
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(payload);
+    // Push to GTM dataLayer
+    window.dataLayer = window.dataLayer || [];
+    if (Array.isArray(window.dataLayer)) {
+      window.dataLayer.push(payload);
+    } else {
+      console.warn('[Analytics] window.dataLayer is not an array.');
+    }
 
-  // Push to GA4 gtag if available
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', eventName, params);
+    // Push to GA4 gtag if available
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, params);
+    }
+
+    console.log(`[Analytics Event] ${eventName}:`, payload);
+  } catch (err) {
+    console.error('[Analytics Event Error] Failed to track event:', err);
   }
-
-  console.log(`[Analytics Event] ${eventName}:`, payload);
 }
 
 /**
