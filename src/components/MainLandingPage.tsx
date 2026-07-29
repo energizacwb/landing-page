@@ -158,22 +158,22 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
             <span>MODALIDADE PRÉ-PAGA FLEXÍVEL:</span>
             <span className="font-normal text-white/90">Adquira créditos sob demanda e consulte com total flexibilidade sem contratos de fidelidade.</span>
           </div>
-          <div className="flex items-center gap-4 text-xs font-bold">
+          <div className="flex items-center gap-3 text-xs font-bold flex-wrap justify-center sm:justify-end">
             <button 
               onClick={() => handleConsultantWhatsApp('top_announcement', 'Marcelo')}
-              className="hover:underline flex items-center gap-1.5 bg-white/10 px-2.5 py-1 rounded-full transition-all"
+              className="hover:underline flex items-center gap-1.5 bg-white/10 px-2.5 py-1 rounded-full transition-all cursor-pointer"
             >
               <Phone className="w-3 h-3" />
-              <span>Fale no WhatsApp: (41) 99716-2138</span>
+              <span>WhatsApp: (41) 99716-2138</span>
             </button>
-            <span className="opacity-40">|</span>
-            <button 
-              onClick={onOpenAdmin}
-              className="hover:underline text-white/90 flex items-center gap-1"
+            <span className="opacity-40 hidden sm:inline">|</span>
+            <a 
+              href="mailto:giza@energizasolucoes.com"
+              className="hover:underline flex items-center gap-1.5 bg-white/10 px-2.5 py-1 rounded-full transition-all"
             >
-              <span>Painel do Gestor</span>
-              <ExternalLink className="w-3 h-3" />
-            </button>
+              <Mail className="w-3 h-3" />
+              <span>E-mail: giza@energizasolucoes.com</span>
+            </a>
           </div>
         </div>
       </div>
@@ -1038,6 +1038,7 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
 
             {/* Embedded LeadForm with brand matching colors passed down */}
             <LeadForm 
+              key={selectedIcpForForm}
               icpSlug={selectedIcpForForm}
               onLeadCaptured={onLeadCaptured}
               themeColor={{
@@ -1051,7 +1052,7 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
             <div className="mt-8 pt-6 border-t border-slate-200 text-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#9900ff]" />
-                <span>E-mail Direto: <strong>energizasolucoescwb@gmail.com</strong></span>
+                <span>E-mail Direto: <a href="mailto:giza@energizasolucoes.com" className="hover:underline font-bold text-[#9900ff]">giza@energizasolucoes.com</a></span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-emerald-500" />
@@ -1143,24 +1144,24 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
             <div>
               <h4 className="font-bold text-[#1e293b] uppercase tracking-wider mb-3 text-[10px]">Contatos Rápidos</h4>
               <div className="space-y-2">
-                <p><strong>E-mail:</strong> energizasolucoescwb@gmail.com</p>
+                <p><strong>E-mail:</strong> <a href="mailto:giza@energizasolucoes.com" className="hover:underline font-bold text-[#1e293b]">giza@energizasolucoes.com</a></p>
                 <p><strong>Telefone/WhatsApp:</strong> (41) 99716-2138</p>
                 <p><strong>Sede:</strong> Curitiba - PR • Brasil</p>
               </div>
             </div>
 
             <div>
-              <h4 className="font-bold text-[#1e293b] uppercase tracking-wider mb-3 text-[10px]">Canais Administrativos</h4>
+              <h4 className="font-bold text-[#1e293b] uppercase tracking-wider mb-3 text-[10px]">Conformidade & Suporte</h4>
               <p className="leading-relaxed mb-3">
-                Operamos de acordo com os princípios de transparência de dados e segurança da informação.
+                Operamos com total transparência de dados e segurança da informação em conformidade com a LGPD (Art. 11, II).
               </p>
-              <button
-                onClick={onOpenAdmin}
-                className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[#9900ff] hover:text-[#ff00cc] text-xs font-bold flex items-center gap-1.5 transition-all"
+              <a
+                href="mailto:giza@energizasolucoes.com"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[#9900ff] hover:text-[#ff00cc] text-xs font-bold transition-all"
               >
-                <span>Acessar Painel do Gestor</span>
-                <ExternalLink className="w-3 h-3" />
-              </button>
+                <Mail className="w-3.5 h-3.5" />
+                <span>Falar via E-mail Comercial</span>
+              </a>
             </div>
           </div>
 
@@ -1170,6 +1171,25 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
           </div>
         </div>
       </footer>
+
+      {/* Floating Quick Contact Bar */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col sm:flex-row items-end sm:items-center gap-2.5">
+        <button
+          onClick={() => scrollToLeadForm()}
+          className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2.5 px-4 rounded-full shadow-2xl border border-slate-700 flex items-center gap-2 transition-all cursor-pointer transform hover:scale-105"
+        >
+          <Sparkles className="w-4 h-4 text-[#ff00cc]" />
+          <span>Formulário de Cotação</span>
+        </button>
+
+        <button
+          onClick={() => handleConsultantWhatsApp('floating_bar', 'Marcelo')}
+          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold py-2.5 px-4 rounded-full shadow-2xl flex items-center gap-2 transition-all cursor-pointer transform hover:scale-105"
+        >
+          <MessageSquare className="w-4 h-4" />
+          <span>Atendimento WhatsApp (41) 99716-2138</span>
+        </button>
+      </div>
     </div>
   );
 }

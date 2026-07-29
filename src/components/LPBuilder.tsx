@@ -3,7 +3,7 @@ import { ICPConfig, Lead } from '../types';
 import LucideIcon from './LucideIcon';
 import LeadForm from './LeadForm';
 import EnergizaLogo from './EnergizaLogo';
-import { ShieldCheck, Plus, Minus, ArrowUpRight, HelpCircle, Check, Users, Download, FileText } from 'lucide-react';
+import { ShieldCheck, Plus, Minus, ArrowUpRight, HelpCircle, Check, Users, Download, FileText, MessageSquare, Sparkles } from 'lucide-react';
 import { generateIcpPDF } from '../utils/pdfGenerator';
 
 interface LPBuilderProps {
@@ -56,32 +56,21 @@ export default function LPBuilder({ config, onLeadCaptured, onGTMEvent, onBackTo
   return (
     <div id={`lp_wrapper_${config.slug}`} className="min-h-screen bg-neutral-50/50 text-neutral-900 selection:bg-indigo-100 selection:text-indigo-900 font-sans">
       
-      {/* Dev Mode Notification Strip */}
-      <div className="bg-neutral-950 text-white py-2 px-4 text-xs font-mono flex items-center justify-between sticky top-0 z-50 shadow-md">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
-          <span>LP Ativa: <strong className="text-neutral-300">energizasolucoes.com/{config.slug}</strong></span>
-          <span className="hidden md:inline text-neutral-500">| ICP: {config.name}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          {onBackToHub && (
-            <button
-              id={`btn_back_to_control_panel_${config.slug}`}
-              onClick={onBackToHub}
-              className="bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded text-[11px] font-sans font-medium transition-all cursor-pointer flex items-center gap-1"
-            >
-              Página Inicial (Home) <ArrowUpRight size={12} />
-            </button>
-          )}
-        </div>
-      </div>
-
       {/* Header */}
-      <header id={`header_${config.slug}`} className="bg-white border-b border-neutral-100 py-4 px-4 sm:px-6 lg:px-8">
+      <header id={`header_${config.slug}`} className="bg-white border-b border-neutral-100 py-4 px-4 sm:px-6 lg:px-8 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <EnergizaLogo size="sm" />
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            {onBackToHub && (
+              <button
+                id={`btn_back_to_control_panel_${config.slug}`}
+                onClick={onBackToHub}
+                className="text-xs font-sans font-medium text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer flex items-center gap-1 bg-neutral-100 hover:bg-neutral-200 py-1.5 px-3 rounded-lg"
+              >
+                ← Home
+              </button>
+            )}
             <span className="hidden sm:flex items-center gap-1 text-[11px] font-sans font-semibold text-neutral-500 bg-neutral-100 py-1 px-2.5 rounded-full">
               <ShieldCheck size={12} className="text-emerald-600" /> LGPD Compliant (Art. 11, II)
             </span>
@@ -619,8 +608,8 @@ export default function LPBuilder({ config, onLeadCaptured, onGTMEvent, onBackTo
 
           <div className="md:col-span-4 space-y-2">
             <h4 className="font-mono font-bold text-neutral-200 uppercase tracking-wider mb-3">Informações de Contato</h4>
-            <p><strong>E-mail:</strong> energizasolucoescwb@gmail.com</p>
-            <p><strong>Telefone:</strong> (41) 99716-2138</p>
+            <p><strong>E-mail:</strong> <a href="mailto:giza@energizasolucoes.com" className="hover:underline text-indigo-400">giza@energizasolucoes.com</a></p>
+            <p><strong>Telefone/WhatsApp:</strong> (41) 99716-2138</p>
           </div>
 
           <div className="md:col-span-3 space-y-2">
@@ -631,6 +620,28 @@ export default function LPBuilder({ config, onLeadCaptured, onGTMEvent, onBackTo
 
         </div>
       </footer>
+
+      {/* Floating Quick Contact Bar */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col sm:flex-row items-end sm:items-center gap-2.5">
+        <button
+          onClick={() => handleCtaClick('floating_bar_lead')}
+          className="bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold py-2.5 px-4 rounded-full shadow-2xl border border-neutral-700 flex items-center gap-2 transition-all cursor-pointer transform hover:scale-105"
+        >
+          <Sparkles className="w-4 h-4 text-amber-400" />
+          <span>Formulário de Cotação</span>
+        </button>
+
+        <a
+          href={`https://api.whatsapp.com/send?phone=5541997162138&text=${encodeURIComponent(`Olá! Vim pela página de ${config.sector} (${config.name}) da Energiza Soluções e gostaria de solicitar uma proposta comercial.`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => onGTMEvent(`whatsapp_floating_click_${config.slug}`, 'btn_floating_whatsapp')}
+          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold py-2.5 px-4 rounded-full shadow-2xl flex items-center gap-2 transition-all cursor-pointer transform hover:scale-105"
+        >
+          <MessageSquare className="w-4 h-4" />
+          <span>WhatsApp (41) 99716-2138</span>
+        </a>
+      </div>
 
     </div>
   );

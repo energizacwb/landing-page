@@ -413,7 +413,7 @@ export function generateIcpPDF(config: ICPConfig) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(71, 85, 105);
-  doc.text('E-mail: energizasolucoescwb@gmail.com  |  Telefone: (41) 99716-2138', marginX, currentY + 4.5);
+  doc.text('E-mail: giza@energizasolucoes.com  |  Telefone: (41) 99716-2138', marginX, currentY + 4.5);
 
   drawFooter(2, 2);
 
