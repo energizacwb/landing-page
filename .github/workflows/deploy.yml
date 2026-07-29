@@ -32,6 +32,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
           local-dir: ./dist/
-          server-dir: ./ # Ajuste caso a pasta no Hostinger seja diferente (ex: public_html/)
-          protocol: ftp # Use ftps se configurado no Hostinger, ou sftp
+          server-dir: public_html/
+          protocol: ftp
