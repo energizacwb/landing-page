@@ -161,19 +161,17 @@ export default function LeadForm({
         console.error('Error saving lead to cache:', err);
       }
 
-      // Send lead details email via Web3Forms
-      const web3FormsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY";
-
-      fetch('https://api.web3forms.com/submit', {
+      // Send lead details email via FormSubmit.co
+      fetch('https://formsubmit.co/ajax/giza@energizasolucoes.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: web3FormsKey,
-          subject: `Novo Lead Energiza: ${newLead.name}`,
-          from_name: "Energiza Landing Page",
+          _subject: `Novo Lead Energiza: ${newLead.name}`,
+          _template: 'box',
+          _captcha: 'false',
           name: newLead.name,
           email: newLead.email,
           phone: newLead.phone,
