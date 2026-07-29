@@ -125,6 +125,36 @@ interface MainLandingPageProps {
   onOpenAdmin: () => void;
 }
 
+interface TeamAvatarProps {
+  src: string;
+  alt: string;
+  initials: string;
+  fallbackBg: string;
+  className?: string;
+}
+
+function TeamAvatar({ src, alt, initials, fallbackBg, className = '' }: TeamAvatarProps) {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return (
+      <div className={`w-16 h-16 rounded-full ${fallbackBg} text-white font-extrabold flex items-center justify-center text-sm shadow-inner shrink-0 ${className}`}>
+        {initials}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onError={() => setHasError(true)}
+      className={`w-16 h-16 rounded-full object-cover shrink-0 ${className}`}
+      referrerPolicy="no-referrer"
+    />
+  );
+}
+
 export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdmin }: MainLandingPageProps) {
   const [selectedIcpForForm, setSelectedIcpForForm] = useState<ICPKey | 'cobranca'>('cobranca');
   const [dbVolume, setDbVolume] = useState<number>(25000);
@@ -244,11 +274,12 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
               {/* Approachable Consulting Card inside Hero */}
               <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm max-w-2xl mx-auto lg:mx-0 flex flex-col sm:flex-row items-center gap-5 text-left">
                 <div className="relative shrink-0">
-                  <img 
+                  <TeamAvatar 
                     src={consultantPortrait} 
-                    alt="Marcelo Silva - Consultor de Dados"
-                    className="w-16 h-16 rounded-full object-cover border-2 border-[#9900ff]"
-                    referrerPolicy="no-referrer"
+                    alt="Marcelo Silva - Consultor de Dados" 
+                    initials="MS" 
+                    fallbackBg="bg-gradient-to-br from-[#9900ff] to-indigo-600"
+                    className="border-2 border-[#9900ff]"
                   />
                   <div className="absolute -bottom-1 -right-1 bg-emerald-500 w-4.5 h-4.5 rounded-full border-2 border-white flex items-center justify-center">
                     <span className="block w-2 h-2 rounded-full bg-white animate-ping"></span>
@@ -988,17 +1019,19 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6">
             <div className="flex -space-x-3 shrink-0">
-              <img 
+              <TeamAvatar 
                 src={consultantPortrait} 
-                alt="Marcelo Silva - Energiza"
-                className="w-16 h-16 rounded-full object-cover border-2 border-white ring-2 ring-[#9900ff]"
-                referrerPolicy="no-referrer"
+                alt="Marcelo Silva - Energiza" 
+                initials="MS" 
+                fallbackBg="bg-gradient-to-br from-[#9900ff] to-indigo-600"
+                className="border-2 border-white ring-2 ring-[#9900ff]"
               />
-              <img 
+              <TeamAvatar 
                 src={onboardingSpecialist} 
-                alt="Ana Souza - Energiza"
-                className="w-16 h-16 rounded-full object-cover border-2 border-white ring-2 ring-[#ff00cc]"
-                referrerPolicy="no-referrer"
+                alt="Ana Souza - Energiza" 
+                initials="AS" 
+                fallbackBg="bg-gradient-to-br from-[#ff00cc] to-pink-500"
+                className="border-2 border-white ring-2 ring-[#ff00cc]"
               />
             </div>
             <div className="space-y-2 text-center md:text-left flex-1">
