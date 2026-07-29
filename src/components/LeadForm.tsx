@@ -161,6 +161,31 @@ export default function LeadForm({
         console.error('Error saving lead to cache:', err);
       }
 
+      // Send lead details email via PHP script
+      fetch('/send_lead.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: newLead.name,
+          email: newLead.email,
+          phone: newLead.phone,
+          company: newLead.company,
+          role: formData.role,
+          icp: icpSlug,
+          volume: newLead.volume
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error('Error sending lead email:', response.statusText);
+        }
+      })
+      .catch(err => {
+        console.error('Network error sending lead email:', err);
+      });
+
       try {
         if (onLeadCaptured) onLeadCaptured(newLead);
       } catch (err) {
@@ -187,13 +212,6 @@ export default function LeadForm({
           successRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       }, 100);
-
-      // Attempt popup redirect gracefully if allowed
-      try {
-        window.open(whatsappUrl, '_blank');
-      } catch (err) {
-        console.warn('Popup blocked, user can click direct button below', err);
-      }
     }, 400);
   };
 
