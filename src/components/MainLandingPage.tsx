@@ -4,6 +4,8 @@ import { icpList } from '../data/icpData';
 import LeadForm from './LeadForm';
 import EnergizaLogo from './EnergizaLogo';
 import { trackEvent } from '../utils/analytics';
+import consultantPortrait from '../assets/images/consultant_portrait_1785257420340.jpg';
+import onboardingSpecialist from '../assets/images/onboarding_specialist_1785257437990.jpg';
 import { 
   CheckCircle2, 
   Phone, 
@@ -243,7 +245,7 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
               <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm max-w-2xl mx-auto lg:mx-0 flex flex-col sm:flex-row items-center gap-5 text-left">
                 <div className="relative shrink-0">
                   <img 
-                    src="/src/assets/images/consultant_portrait_1785257420340.jpg" 
+                    src={consultantPortrait} 
                     alt="Marcelo Silva - Consultor de Dados"
                     className="w-16 h-16 rounded-full object-cover border-2 border-[#9900ff]"
                     referrerPolicy="no-referrer"
@@ -987,13 +989,13 @@ export default function MainLandingPage({ onSelectICP, onLeadCaptured, onOpenAdm
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6">
             <div className="flex -space-x-3 shrink-0">
               <img 
-                src="/src/assets/images/consultant_portrait_1785257420340.jpg" 
+                src={consultantPortrait} 
                 alt="Marcelo Silva - Energiza"
                 className="w-16 h-16 rounded-full object-cover border-2 border-white ring-2 ring-[#9900ff]"
                 referrerPolicy="no-referrer"
               />
               <img 
-                src="/src/assets/images/onboarding_specialist_1785257437990.jpg" 
+                src={onboardingSpecialist} 
                 alt="Ana Souza - Energiza"
                 className="w-16 h-16 rounded-full object-cover border-2 border-white ring-2 ring-[#ff00cc]"
                 referrerPolicy="no-referrer"
